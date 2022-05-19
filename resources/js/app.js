@@ -1,1 +1,3 @@
-require('./bootstrap');
+require('./send-form');
+require('./main.js');
+require('./multiselect.js');

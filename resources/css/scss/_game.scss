@@ -1,0 +1,50 @@
+.td__cell {
+    /*width: 4%;*/
+    width: 140px;
+    /*height: 4%;*/
+    height: 110px;
+    border: 1px solid rgba(61, 59, 59, 0712);
+    color: white;
+    cursor: pointer;
+    font-size: 0;
+}
+
+#game {
+    padding: 2%;
+    border: 3px solid rgb(3, 3, 3);
+    width: 100%;
+}
+
+#start {
+    display: block;
+    align-items: flex-end;
+    color: black;
+    /*background-color: #9c9c94;*/
+}
+
+.active {
+    color: rgba(250, 250, 250, 0.986);
+}
+
+#winner {
+    display: none;
+    background: #9c9c94;
+    width: 100%;
+}
+
+#youWin {
+    margin-left: 0;
+    color: white;
+}
+
+#yourTime {
+    margin-left: 0;
+    color: white;
+}
+
+#theEnd {
+    display: block;
+    align-items: flex-end;
+    /*background: #9c9c94;*/
+    border: 2px solid blue;
+}
