@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -15,7 +16,14 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    #[ArrayShape([
+        'name' => "string",
+        'email' => "string",
+        'email_verified_at' => "\Illuminate\Support\Carbon",
+        'password' => "string",
+        'remember_token' => "string"
+    ])]
+    public function definition(): array
     {
         return [
             'name' => $this->faker->name(),
@@ -31,7 +39,7 @@ class UserFactory extends Factory
      *
      * @return static
      */
-    public function unverified()
+    public function unverified(): static
     {
         return $this->state(function (array $attributes) {
             return [

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateGamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->nullable();
-            $table->string('email', 255)->nullable(false)->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', 255)->nullable(false);
-            $table->rememberToken();
+            $table->integer('user_id');
+            $table->integer('moves');
+            $table->string('record');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('games');
     }
-};
+}
