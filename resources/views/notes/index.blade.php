@@ -23,7 +23,6 @@
                     <small>{{ $note->updated_at }}</small>
                 </div>
                 <p class="mb-1">{{ $note->content }}</p>
-                <small>mi</small>
             </a>
         </div>
     @endforeach

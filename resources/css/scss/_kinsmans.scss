@@ -1,0 +1,127 @@
+.team {
+    &-boxed {
+        color: #313437;
+        background-color: #eef4f7;
+
+        p {
+            color: #7d8285;
+        }
+
+        .people {
+            padding: 50px 0;
+        }
+
+        .item {
+            text-align: center;
+
+            .box {
+                text-align: center;
+                padding: 30px;
+                background-color: #fff;
+                margin-bottom: 30px;
+                min-height: 400px;
+            }
+
+            .name {
+                margin-top: 28px;
+                margin-bottom: 8px;
+                color: black;
+            }
+
+            .title {
+                color: #0c0505;
+                letter-spacing: 2px;
+                font-size: 11px;
+            }
+
+            .description {
+                font-size: 15px;
+                margin-top: 15px;
+                margin-bottom: 20px;
+                color: black;
+            }
+
+            img {
+                max-height: 150px;
+            }
+        }
+    }
+}
+
+.info-wrap {
+    min-height: 150px;
+
+    &__child {
+        min-height: 60px;
+    }
+}
+
+.child-box {
+    font-weight:bold;
+    margin-bottom:40px;
+    padding-top:40px;
+    color:inherit;
+}
+
+@media (max-width:767px) {
+    .child-box {
+        margin-bottom:25px;
+        padding-top:25px;
+        font-size:24px;
+    }
+}
+
+.people {
+    padding:50px 0;
+}
+
+.item {
+    text-align:center;
+
+    .box {
+        text-align:center;
+        padding:30px;
+        background-color:#fff;
+        margin-bottom:30px;
+        min-height: 400px;
+    }
+
+    .name {
+        font-weight:bold;
+        margin-top:28px;
+        margin-bottom:8px;
+        color:black;
+        min-height: 70px;
+    }
+
+    .title {
+        text-transform:uppercase;
+        font-weight:bold;
+        color: #0e0606;
+        letter-spacing: 2px;
+        font-size:13px;
+    }
+
+    .description {
+        font-size:15px;
+        margin-top:15px;
+        margin-bottom:20px;
+        color: black;
+    }
+
+    img {
+        max-height: 150px;
+    }
+}
+
+.rounded-circle {
+    width: 160px;
+}
+
+.info-wrap {
+    min-height: 150px;
+
+    &__child {
+        min-height: 60px;
+    }
+}

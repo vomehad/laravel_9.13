@@ -1,6 +1,5 @@
 import $ from './jquery-3.6.0.min'
 
-const getCookieUrl = '/test/cookie';
 const contentBlock = $('.test-content');
 
 // functions
@@ -82,6 +81,8 @@ cookieForm.on('submit', (event) => {
     event.preventDefault();
     disableButton(cookieForm);
 
+    const getCookieUrl = cookieForm.attr('data-url');
+
     $.ajax({
         url: cookieForm.attr('action'),
         method: "POST",
@@ -103,7 +104,10 @@ splitForm.on('submit', (event) => {
 
     $.ajax({url: splitForm.attr('action'), method: "POST", data: splitForm.serializeArray()})
         .done((word) => {
-            $('.test-content__split').text(word);
+            const wordDiv = $('.test-content__split');
+
+            wordDiv.text(word);
+            wordDiv.show();
             splitForm.children('button').prop('disabled', false);
         })
         .fail((error) => alertErrorMessages(error.responseJSON, splitForm));
@@ -120,8 +124,10 @@ textForm.on('submit', (event) => {
     $.ajax({url: textForm.attr('action'), method: "POST", data: textForm.serializeArray()})
         .done((text) => {
             enableButton(textForm);
-            $('.test-content__text').text(text);
-            console.log(text)
+            const textDiv = $('.test-content__text');
+
+            textDiv.text(text);
+            textDiv.show();
         })
         .fail((error) => alertErrorMessages(error.responseJSON, textForm));
 });

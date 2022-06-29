@@ -5,7 +5,7 @@
        class="btn btn-primary"
     >{{ __('Article.Button.Update') }}</a>
     <button class="btn btn-danger js-delete"
-            data-ref="{{ route('articles.destroy', ['article' => $model->id]) }}"
+            data-ref="{{ route('articles.destroy', $model->id) }}"
             data-csrf="{{ csrf_token() }}"
             data-redirect="{{ route("articles.index") }}"
     >{{ __('Article.Button.Delete') }}</button>

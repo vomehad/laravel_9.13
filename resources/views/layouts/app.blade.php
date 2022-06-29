@@ -9,7 +9,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 
     @yield('meta')
-{{--    <title>@yield('title')</title>--}}
     <title>{{ $title ?? __('Titles' . '.' . \App\Helpers\NameHelper::getActionName()) }}</title>
     @include('layouts.includes.assets.css')
     @include('layouts.includes.assets.fonts')
@@ -20,12 +19,12 @@
 <div class="container">
     @include('layouts.includes.assets.messages')
     <div class="row">
-        <div class="col-bg-9 col-md-10 col-sm-12">
+        <div class="col-bg-12 col-md-12 col-sm-12">
             @yield('content')
         </div>
-        <div class="col-bg-3 col-md-2 col-sm-0">
-            @include('layouts.includes.aside')
-        </div>
+{{--        <div class="col-bg-3 col-md-2 col-sm-0">--}}
+{{--            @include('layouts.includes.aside')--}}
+{{--        </div>--}}
     </div>
 </div>
 @include('layouts.includes.assets.js')

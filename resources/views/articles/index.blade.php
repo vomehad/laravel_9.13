@@ -19,13 +19,13 @@
     </div>
 
     <div class="content">
-        <span>{{ __('Article.Search') }} - {{ $models->total() }}</span>
+        <span>{{ __('Article.Label.Search') }} - {{ $models->total() }}</span>
         @foreach($models as $article)
             @php /** @var \App\Models\Article $article */ @endphp
             <div class="list-group">
-                <a href="{{ route('articles.show', ['article' => $article->id]) }}"
+                <a href="{{ route('articles.show', $article->id) }}"
                    class="list-group-item list-group-item-action flex-column align-items-start"
-                   title="{{ $article->getPreview() }}"
+                   title="{{ $article->preview }}"
                 >
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{ $article->title }}</h5>

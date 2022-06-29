@@ -9,12 +9,14 @@
 @section('content')
     @php
         /** @var \App\Models\Article $model */
-        /** @var array $selected */
+        /** @var \App\Models\Category[] $categories */
+        /** @var \App\Dto\SelectedDto $selected */
     @endphp
     <div class="form-wrap">
-        <form action="{{ route('articles.store') }}" method="post" class="row multiselect_block">
+        <form action="{{ route('articles.update', $model->id) }}" method="post" class="row multiselect_block">
             @csrf
             <input type="hidden" name="id" value="{{ $model->id }}" />
+            @method('PUT')
 
             <div class="col-md-10 col-sm-12">
                 <label for="title" class="form-label">{{ __('Article.Label.Title') }}</label>
@@ -31,28 +33,31 @@
             </div>
             @enderror
 
-                <div class="col-md-10 col-sm-12">
-                    <label for="link">{{ __('Article.Label.Link') }}</label>
-                    <input name="link" value="{{ old('link', $model->link) }}"
-                           type="text"
-                           class="form-control @error('link') border-danger @enderror"
-                           placeholder="{{ __('Article.Placeholder.Link') }}"
-                           id="link"
-                    />
-                </div>
+            <div class="col-md-10 col-sm-12">
+                <label for="link">{{ __('Article.Label.Link') }}</label>
+                <input name="link" value="{{ old('link', $model->link) }}"
+                       type="text"
+                       class="form-control @error('link') border-danger @enderror"
+                       placeholder="{{ __('Article.Placeholder.Link') }}"
+                       id="link"
+                />
+            </div>
 
-                <div class="col-md-10 col-sm-12">
-                    <label for="select-category" class="multiselect_label"></label>
-                    <input type="checkbox" id="select-category" class="multiselect_checkbox">
+            <div class="col-md-10 col-sm-12">
+                <label for="select-category" class="multiselect_label"></label>
+                <input type="checkbox" id="select-category" class="multiselect_checkbox">
 
-                    <label for="category-selector" class="field_multiselect">{{ __('Article.Label.Category') }}</label>
-                    <select name="category[]" id="category-selector" class="field_select" multiple>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ Arr::exists($selected, $category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <span class="error_text"></span>
+                <label for="category-selector" class="field_multiselect">{{ __('Article.Label.Category') }}</label>
+                <select name="category[]" id="category-selector" class="field_select" multiple>
+                    @foreach($categories as $category)
+                        @php /** @var \App\Models\Category $category */ @endphp
+                        <option value="{{ $category->id }}"
+                            {{ $selected->categories->has($category->id) ? 'selected' : '' }}
+                        >{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <span class="error_text"></span>
 
             <div class="col-md-10 col-sm-12">
                 <label for="text" class="form-label">{{ __('Article.Label.Text') }}</label>

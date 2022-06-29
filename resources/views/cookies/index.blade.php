@@ -2,7 +2,11 @@
 @section('content')
     <div class="test">
         <div class="test-content">
-            <form action="{{ route('test.web-cookie') }}" class="test-content__form form-inline js-send-form" id="cookie-form">
+            <form action="{{ route('test.cookie.store') }}"
+                  data-url="{{ route('test.cookie.index') }}"
+                  class="test-content__form form-inline js-send-form"
+                  id="cookie-form"
+            >
                 @csrf
 
                 <div class="form-group mx-sm-4 mb-1">
@@ -55,7 +59,7 @@
                            name="wordSplit"
                            placeholder="{{ __('Test.Placeholder.Split-word') }}"
                     />
-                    <div class="alert alert-success test-content__split mt-lg-2"></div>
+                    <div class="alert alert-success test-content__split mt-lg-2" style="display: none;"></div>
 
 
                 </div>
@@ -74,7 +78,7 @@
                               id="text"
                               placeholder="{{ __('Test.Placeholder.Text') }}"
                     ></textarea>
-                    <div class="alert alert-success test-content__text mt-lg-2"></div>
+                    <div class="alert alert-success test-content__text mt-lg-2" style="display: none;"></div>
                 </div>
 
                 <button class="btn btn-success col-2">{{ __('Test.Send.Text') }}</button>
