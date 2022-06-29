@@ -2,64 +2,74 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\HasApiTokens;
-use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Orchid\Platform\Models\User as Authenticatable;
 
 /**
- * Class User
- * @package App\Models
- *
- * @property string $username
  * @property string $name
- * @property string $email
- * @property string $password
- *
- * @method static first()
- * @method static where(string $attribute, string $value)
- * @method static find(int $id)
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Searchable, SoftDeletes;
-
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
-//        'username',
+        'name',
         'email',
         'password',
+        'permissions',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes excluded from the model's JSON form.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $hidden = [
         'password',
         'remember_token',
+        'permissions',
     ];
 
     /**
-     * The attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'permissions'          => 'array',
+        'email_verified_at'    => 'datetime',
     ];
 
-    public function setPasswordAttribute($password)
+    /**
+     * The attributes for which you can use filters in url.
+     *
+     * @var array
+     */
+    protected $allowedFilters = [
+        'id',
+        'name',
+        'email',
+        'permissions',
+    ];
+
+    /**
+     * The attributes for which can use sort in url.
+     *
+     * @var array
+     */
+    protected $allowedSorts = [
+        'id',
+        'name',
+        'email',
+        'updated_at',
+        'created_at',
+    ];
+
+    public function articles(): HasMany
     {
-        $this->attributes['password'] = Hash::make($password);
+        return $this->hasMany(Article::class, 'created_by','id');
     }
 }

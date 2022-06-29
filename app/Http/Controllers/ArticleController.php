@@ -2,21 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\NameHelper;
-use App\Http\Requests\ArticleRequestStore;
+use App\Http\Requests\CreateArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
-use App\Models\Category;
-use App\Models\User;
+use App\Repositories\ArticleRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Lang;
 
 class ArticleController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    private const PER_PAGE = 10;
+    private const DEFAULT_SORT = 'updated_at';
+    private const EAGER_LOADING = true;
+    private const OPTIONS = [
+        'perPage' => self::PER_PAGE,
+        'defaultSort' => self::DEFAULT_SORT,
+        'eager' => self::EAGER_LOADING,
+    ];
+
+    private ArticleRepository $repository;
+
+    public function __construct(ArticleRepository $repository)
     {
-        $articles = $this->getArticleList();
+        parent::__construct();
+        $this->repository = $repository;
+    }
+
+    public function index()
+    {
+        $articles = $this->repository->getAll(self::OPTIONS);
 
         return view('articles.index', [
             'models' => $articles,
@@ -24,98 +39,94 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function create()
     {
-        $article = new Article();
-        $categories = Category::getAll();
+        [$article, $categories] = $this->repository->add();
 
-        return view('articles.edit', [
+        return view('articles.create', [
             'model' => $article,
             'categories' => $categories,
-            'selected' => [],
             'nav' => $this->nav,
         ]);
     }
 
-    public function store(ArticleRequestStore $request): RedirectResponse
+    public function store(CreateArticleRequest $request): RedirectResponse
     {
-        $data = $request->all();
+        $dto = $request->createDto();
 
-        $article = Article::findOrNew($request->id);
-        $article->fill($data);
+        $articleId = $this->repository->create($dto);
 
-        $article->preview = $request->title;
-
-        $article->created_by = User::first()->id;
-        $article->disk = '';
-
-        $article->save();
-
-        $article->category()->attach(Arr::get($data, 'category'));
-
-        return redirect()->route('articles.show', $article->id);
+        if ($articleId) {
+            return redirect()
+                ->route('articles.show', $articleId)
+                ->with(['success' => Lang::get('Article.Message.Saved')]);
+        } else {
+            return back()
+                ->withErrors(['msg' => Lang::get('Article.Message.Error')])
+                ->withInput();
+        }
     }
 
     public function show(int $id): string
     {
-        $article = Article::with(['category'])->where(['id' => $id])->first();
+        /** @var Article $article */
+        $article = $this->repository->getOne($id);
 
         return view('articles.show', [
             'title' => $article->title,
             'model' => $article,
-            'selected' => $article->category->toArray(),
             'nav' => $this->nav,
         ]);
     }
 
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function edit(int $id)
     {
-        $article = Article::with('category')
-            ->where(['id' => $id])
-            ->first();
-
-        $categories = Category::getAll();
-
-        $selected = $article->category->keyBy('id');
+        /** @var Article $article */
+        [$article, $categories, $selected] = $this->repository->edit($id);
 
         return view('articles.edit', [
             'title' => $article->title,
             'model' => $article,
             'categories' => $categories,
-            'selected' => $selected->toArray(),
+            'selected' => $selected,
             'nav' => $this->nav,
         ]);
+    }
+
+    public function update(UpdateArticleRequest $request): RedirectResponse
+    {
+        $dto = $request->createDto();
+
+        $articleId = $this->repository->update($dto);
+
+        if ($articleId) {
+            return redirect()
+                ->route('articles.show', $articleId)
+                ->with(['success' => Lang::get('Article.Message.Saved')]);
+        } else {
+            return back()
+                ->withErrors(['msg' => Lang::get('Article.Message.Error')])
+                ->withInput();
+        }
     }
 
     public function destroy(int $id): string
     {
-        $article = Article::find($id);
-        $article->delete();
-
-        return NameHelper::getActionName();
+        return $this->repository->remove($id);
     }
 
-    public function search(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function search(Request $request)
     {
-        $string = $request->get('search') ?? $request->query->get('query') ?? '';
-        $articles = $this->getArticleList($string);
+        $options = [
+            'search' => $request->get('search') ?? $request->query->get('query') ?? '',
+        ];
+
+        $articles = $this->repository->getAll($options);
 
         return view('articles.index', [
             'models' => $articles,
+            'string' => $options['search'],
             'nav' => $this->nav,
-            'string' => $string,
         ]);
-    }
-
-    private function getArticleList(string $search = ''): LengthAwarePaginator
-    {
-        $model = new Article();
-        $perPage = 8;
-
-        if ($search) {
-            $model = $model->search($search);
-        }
-
-        return $model->paginate($perPage);
     }
 }

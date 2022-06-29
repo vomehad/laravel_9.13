@@ -2,9 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Dto\ExamDto;
+use App\Interfaces\DtoInterface;
+use App\Interfaces\TransportInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TextRequest extends FormRequest
+class TextRequest extends FormRequest implements TransportInterface
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,5 +29,13 @@ class TextRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    public function createDto(): DtoInterface
+    {
+        $dto = new ExamDto();
+        $dto->text = $this->text;
+
+        return $dto;
     }
 }
