@@ -13,11 +13,13 @@ class CreateNoteCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_note', function (Blueprint $table) {
-            $table->id();
-            $table->integer('note_id');
-            $table->integer('category_id');
-        });
+        if (!Schema::hasTable('category_note')) {
+            Schema::create('category_note', function (Blueprint $table) {
+                $table->id();
+                $table->integer('note_id');
+                $table->integer('category_id');
+            });
+        }
     }
 
     /**

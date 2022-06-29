@@ -13,14 +13,20 @@ class CreateGamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('games', function (Blueprint $table) {
-            $table->id();
-            $table->integer('user_id');
-            $table->integer('moves');
-            $table->string('record');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('games')) {
+            Schema::create('games', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')
+                    ->nullable(true)
+                    ->constrained('users')
+                    ->cascadeOnUpdate()
+                    ->restrictOnDelete();
+                $table->integer('moves');
+                $table->string('record');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

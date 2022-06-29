@@ -13,11 +13,13 @@ class CreateArticleCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_category', function (Blueprint $table) {
-            $table->id();
-            $table->integer('article_id');
-            $table->integer('category_id');
-        });
+        if (!Schema::hasTable('article_category')) {
+            Schema::create('article_category', function (Blueprint $table) {
+                $table->id();
+                $table->integer('article_id');
+                $table->integer('category_id');
+            });
+        }
     }
 
     /**

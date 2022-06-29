@@ -14,16 +14,18 @@ class CreateContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
-            $table->id();
-            $table->string('username');
-            $table->string('name');
-            $table->string('email');
-            $table->string('subject');
-            $table->text('message');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('contacts')) {
+            Schema::create('contacts', function (Blueprint $table) {
+                $table->id();
+                $table->string('username');
+                $table->string('name');
+                $table->string('email');
+                $table->string('subject');
+                $table->text('message');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

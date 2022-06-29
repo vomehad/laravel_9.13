@@ -13,14 +13,21 @@ class CreateNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
-            $table->id();
-            $table->tinyText('name')->nullable(false);
-            $table->text('content')->nullable(true);
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('notes')) {
+            Schema::create('notes', function (Blueprint $table) {
+                $table->id();
+                $table->tinyText('name')->nullable(false);
+                $table->text('content')->nullable(true);
+                $table->foreignId('parent_id')
+                    ->nullable()
+                    ->constrained('notes')
+                    ->cascadeOnUpdate()
+                    ->restrictOnDelete();
+                $table->timestamps();
+                $table->boolean('active')->default(true);
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

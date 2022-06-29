@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTagsTable extends Migration
+class AddColorColumnToKins extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateTagsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('tags')) {
-            Schema::create('tags', function (Blueprint $table) {
-                $table->id();
-                $table->string('name');
-                $table->text('description');
-                $table->boolean('active')->default(true);
+        if (!Schema::hasColumn('table', 'color')) {
+            Schema::table('kins', function (Blueprint $table) {
+                $table->tinyText('color')->nullable();
             });
         }
     }
@@ -30,6 +27,8 @@ class CreateTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::table('kins', function (Blueprint $table) {
+            $table->dropColumn('color');
+        });
     }
 }

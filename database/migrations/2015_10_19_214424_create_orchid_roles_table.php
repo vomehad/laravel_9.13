@@ -4,33 +4,29 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryTable extends Migration
+class CreateOrchidRolesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        if (!Schema::hasTable('categories')) {
-            Schema::create('categories', function (Blueprint $table) {
+        if (!Schema::hasTable('roles')) {
+            Schema::create('roles', function (Blueprint $table) {
                 $table->id();
+                $table->string('slug', 255)->unique();
                 $table->string('name');
+                $table->jsonb('permissions')->nullable();
                 $table->timestamps();
-                $table->boolean('active')->default(true);
-                $table->softDeletes();
             });
         }
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('roles');
     }
 }
