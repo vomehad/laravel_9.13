@@ -4171,7 +4171,6 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-var getCookieUrl = '/test/cookie';
 var contentBlock = _jquery_3_6_0_min__WEBPACK_IMPORTED_MODULE_0___default()('.test-content'); // functions
 
 var showNewCookie = function showNewCookie(numbers, form) {
@@ -4264,6 +4263,7 @@ var cookieForm = contentBlock.find('form#cookie-form');
 cookieForm.on('submit', function (event) {
   event.preventDefault();
   disableButton(cookieForm);
+  var getCookieUrl = cookieForm.attr('data-url');
   _jquery_3_6_0_min__WEBPACK_IMPORTED_MODULE_0___default().ajax({
     url: cookieForm.attr('action'),
     method: "POST",
@@ -4287,7 +4287,9 @@ splitForm.on('submit', function (event) {
     method: "POST",
     data: splitForm.serializeArray()
   }).done(function (word) {
-    _jquery_3_6_0_min__WEBPACK_IMPORTED_MODULE_0___default()('.test-content__split').text(word);
+    var wordDiv = _jquery_3_6_0_min__WEBPACK_IMPORTED_MODULE_0___default()('.test-content__split');
+    wordDiv.text(word);
+    wordDiv.show();
     splitForm.children('button').prop('disabled', false);
   }).fail(function (error) {
     return alertErrorMessages(error.responseJSON, splitForm);
@@ -4305,8 +4307,9 @@ textForm.on('submit', function (event) {
     data: textForm.serializeArray()
   }).done(function (text) {
     enableButton(textForm);
-    _jquery_3_6_0_min__WEBPACK_IMPORTED_MODULE_0___default()('.test-content__text').text(text);
-    console.log(text);
+    var textDiv = _jquery_3_6_0_min__WEBPACK_IMPORTED_MODULE_0___default()('.test-content__text');
+    textDiv.text(text);
+    textDiv.show();
   }).fail(function (error) {
     return alertErrorMessages(error.responseJSON, textForm);
   });

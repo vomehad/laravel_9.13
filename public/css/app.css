@@ -7,7 +7,7 @@
   width: 140px;
   /*height: 4%;*/
   height: 110px;
-  border: 1px solid rgb(61, 59, 59);
+  border: 1px solid #3d3b3b;
   color: white;
   cursor: pointer;
   font-size: 0;
@@ -15,7 +15,7 @@
 
 #game {
   padding: 2%;
-  border: 3px solid rgb(3, 3, 3);
+  border: 3px solid #030303;
   width: 100%;
 }
 
@@ -113,6 +113,10 @@
 }
 
 .form_label input::-moz-placeholder, .field_multiselect::-moz-placeholder {
+  color: #a8acc9;
+}
+
+.form_label input:-ms-input-placeholder, .field_multiselect:-ms-input-placeholder {
   color: #a8acc9;
 }
 
@@ -271,6 +275,116 @@ input.multiselect_checkbox {
 .sorting__bubble {
   min-height: 250px;
   font-size: 32px;
+}
+
+.team-boxed {
+  color: #313437;
+  background-color: #eef4f7;
+}
+.team-boxed p {
+  color: #7d8285;
+}
+.team-boxed .people {
+  padding: 50px 0;
+}
+.team-boxed .item {
+  text-align: center;
+}
+.team-boxed .item .box {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  margin-bottom: 30px;
+  min-height: 400px;
+}
+.team-boxed .item .name {
+  margin-top: 28px;
+  margin-bottom: 8px;
+  color: black;
+}
+.team-boxed .item .title {
+  color: #0c0505;
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+.team-boxed .item .description {
+  font-size: 15px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  color: black;
+}
+.team-boxed .item img {
+  max-height: 150px;
+}
+
+.info-wrap {
+  min-height: 150px;
+}
+.info-wrap__child {
+  min-height: 60px;
+}
+
+.child-box {
+  font-weight: bold;
+  margin-bottom: 40px;
+  padding-top: 40px;
+  color: inherit;
+}
+
+@media (max-width: 767px) {
+  .child-box {
+    margin-bottom: 25px;
+    padding-top: 25px;
+    font-size: 24px;
+  }
+}
+.people {
+  padding: 50px 0;
+}
+
+.item {
+  text-align: center;
+}
+.item .box {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  margin-bottom: 30px;
+  min-height: 400px;
+}
+.item .name {
+  font-weight: bold;
+  margin-top: 28px;
+  margin-bottom: 8px;
+  color: black;
+  min-height: 70px;
+}
+.item .title {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #0e0606;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+.item .description {
+  font-size: 15px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  color: black;
+}
+.item img {
+  max-height: 150px;
+}
+
+.rounded-circle {
+  width: 160px;
+}
+
+.info-wrap {
+  min-height: 150px;
+}
+.info-wrap__child {
+  min-height: 60px;
 }
 .body-content {
     background: #dcdcdc;

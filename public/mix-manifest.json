@@ -1,5 +1,10 @@
 {
     "/js/find-pairs.js": "/js/find-pairs.js?id=ac3f6720145d66766d250b65144749d6",
-    "/js/app.js": "/js/app.js?id=14dbcc8c7875d533f47aad7e1ffe6717",
-    "/css/app.css": "/css/app.css?id=25aed76ab411e626f74aa8822ddd36b6"
+    "/js/app.js": "/js/app.js?id=a6c52714ecbd83a251f92080afb21362",
+    "/css/app.css": "/css/app.css?id=6545cd263bf4b21549e90a135d9ed854",
+    "/css/orchid.css": "/css/orchid.css",
+    "/js/orchid.js": "/js/orchid.js?id=7d38f292ef83050c5f2a",
+    "/js/manifest.js": "/js/manifest.js?id=eb63c58285982720c5dd",
+    "/js/vendor.js": "/js/vendor.js?id=ca249913f8358d7197b5",
+    "/vendor/orchid/favicon.svg": "/favicon.ico"
 }
