@@ -10,11 +10,15 @@
         "ext-pdo": "*",
         "fruitcake/laravel-cors": "*",
         "guzzlehttp/guzzle": "^7.2",
+        "http-interop/http-factory-guzzle": "^1.2",
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/scout": "^9.4",
         "laravel/tinker": "^2.7",
-        "orchid/platform": "*"
+        "maatwebsite/excel": "^3.1",
+        "meilisearch/meilisearch-php": "^0.23.3",
+        "orchid/platform": "*",
+        "psr/simple-cache": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

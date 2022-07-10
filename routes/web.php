@@ -7,6 +7,8 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\KinController;
 use App\Http\Controllers\KinsmanController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\UserController;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [KinsmanController::class, 'index'])->name('home');
@@ -59,3 +61,5 @@ Route::prefix('/')->group(function() {
 Route::prefix('algorithm')->group(function() {
     Route::get('/bubble', [AlgorithmController::class, 'index'])->name('sort');
 });
+
+Route::get('excel', [UserController::class, 'export']);

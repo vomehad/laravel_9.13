@@ -55,7 +55,8 @@ class KinsmanPresenter extends Presenter implements Searchable, Personable
         if (!$image) {
             $name = $this->entity->gender === 'male' ? 'man' : 'woman';
 
-            return "/storage/img/{$name}.jpg";
+//            return "/storage/img/{$name}.jpg";
+            return storage_path("img/{$name}.jpg");
         }
 
         return $image->url();

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ContactsExport;
 use App\Helpers\NameHelper;
 use App\Http\Requests\SplitRequest;
 use App\Http\Requests\TextRequest;
+use App\Imports\ContactsImport;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -135,5 +138,10 @@ class UserController extends Controller
         return view('auth.account', [
             'nav' => $this->nav,
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new ContactsExport(), 'contacts.xlsx');
     }
 }
