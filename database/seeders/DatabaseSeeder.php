@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
 
         $faker = Factory::create('Ru_RU');
 
-        for ($i = 0; $i < 10000; $i++) {
+        for ($i = 0; $i < 100000; $i++) {
             Contact::create([
                 'username' => $faker->name,
                 'email' => $faker->unique()->email,

@@ -36,10 +36,10 @@ class AddColumnsToLifeTable extends Migration
     public function down()
     {
         Schema::table('life', function (Blueprint $table) {
-            $table->dropForeign('life_city_id_foreign');
-            $table->dropColumn('city_id');
-            $table->dropForeign('life_native_city_id_foreign');
-            $table->dropColumn('city_id');
+            $table->dropForeign('city_id');
+//            $table->dropColumn('city_id');
+            $table->dropForeign('native_city_id');
+//            $table->dropColumn('native_city_id');
         });
     }
 }
