@@ -67,6 +67,21 @@ class KinRepository extends BaseRepository implements RepositoryInterface
         return $saved ? $kin->id : null;
     }
 
+    private function setFields(Kin $kin, DtoInterface $dto): Kin
+    {
+        foreach ($dto as $prop => $value) {
+            if ($dto->$prop !== null) {
+                if (is_array($dto->$prop)) {
+                    continue;
+                }
+
+                $kin->$prop = $value;
+            }
+        }
+
+        return $kin;
+    }
+
     public function edit(int $id): array
     {
         $kin = $this->kinModel
@@ -117,20 +132,5 @@ class KinRepository extends BaseRepository implements RepositoryInterface
         $kin->restore();
 
         return NameHelper::getActionName();
-    }
-
-    private function setFields(Kin $kin, DtoInterface $dto): Kin
-    {
-        foreach ($dto as $prop => $value) {
-            if ($dto->$prop !== null) {
-                if (is_array($dto->$prop)) {
-                    continue;
-                }
-
-                $kin->$prop = $value;
-            }
-        }
-
-        return $kin;
     }
 }

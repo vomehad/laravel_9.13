@@ -72,6 +72,17 @@ class CityRepository extends BaseRepository implements RepositoryInterface
         return $saved ? $city->id : null;
     }
 
+    private function setFields(City $city, DtoInterface $dto): City
+    {
+        foreach ($dto as $prop => $value) {
+            if ($dto->$prop !== null) {
+                $city->$prop = $value;
+            }
+        }
+
+        return $city;
+    }
+
     public function edit(int $id): array
     {
         $city = $this->cityModel
@@ -114,16 +125,5 @@ class CityRepository extends BaseRepository implements RepositoryInterface
         $city->restore();
 
         return NameHelper::getActionName();
-    }
-
-    private function setFields(City $city, DtoInterface $dto): City
-    {
-        foreach ($dto as $prop => $value) {
-            if ($dto->$prop !== null) {
-                $city->$prop = $value;
-            }
-        }
-
-        return $city;
     }
 }

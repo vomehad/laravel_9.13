@@ -76,6 +76,20 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
         return $saved ? $note->id : null;
     }
 
+    private function setFields(Note $note, DtoInterface $dto): Note
+    {
+        foreach ($dto as $prop => $value) {
+            if ($dto->$prop) {
+                if (is_array($dto->$prop)) {
+                    continue;
+                }
+                $note->$prop = $value;
+            }
+        }
+
+        return $note;
+    }
+
     public function edit(int $id): array
     {
         /** @var Note $note */
@@ -136,19 +150,5 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
         $note->restore();
 
         return NameHelper::getActionName();
-    }
-
-    private function setFields(Note $note, DtoInterface $dto): Note
-    {
-        foreach ($dto as $prop => $value) {
-            if ($dto->$prop) {
-                if (is_array($dto->$prop)) {
-                    continue;
-                }
-                $note->$prop = $value;
-            }
-        }
-
-        return $note;
     }
 }

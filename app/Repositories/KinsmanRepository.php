@@ -134,6 +134,56 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         return $saved ? $kinsman->id : null;
     }
 
+    private function setFields(Kinsman $kinsman, DtoInterface $dto): Kinsman
+    {
+        foreach ($dto as $prop => $value) {
+            if ($dto->$prop !== null) {
+                $kinsman->$prop = $value;
+            }
+        }
+
+        return $kinsman;
+    }
+
+    private function updateCity(KinsmanDto $kinsmanDto): ?int
+    {
+        $city = $this->cityRepository->getOneByGeo($kinsmanDto->native);
+
+        if (!$city) {
+            $dto = app(CityDto::class);
+            $dto->name = $kinsmanDto->city_name;
+            $dto->country = $kinsmanDto->country_name;
+            $dto->geo = $kinsmanDto->native;
+            $dto->active = true;
+
+            $saved = $this->cityRepository->create($dto);
+        }
+
+        return $saved ?? $city->id;
+    }
+
+    private function updateLife(KinsmanDto $kinsmanDto)
+    {
+        $lifeDto = app(LifeDto::class);
+        $lifeDto->kinsman_id = $kinsmanDto->id ?? null;
+        $lifeDto->birth_date = (string)$kinsmanDto->birth_date;
+        $lifeDto->end_date = $kinsmanDto->end_date;
+        $lifeDto->active = true;
+        $lifeDto->native_city_id = $kinsmanDto->native_city_id;
+
+        if ($lifeDto->kinsman_id) {
+            /** @var Life $life */
+            $life = $this->lifeRepository->getOneByKinsmanId($kinsmanDto->id);
+        }
+
+        if ($lifeDto->kinsman_id && $life) {
+            $lifeDto->id = $life->id;
+            $this->lifeRepository->update($lifeDto);
+        } else {
+            $this->lifeRepository->create($lifeDto);
+        }
+    }
+
     public function edit(int $id): array
     {
         $kinsman = $this->kinsmanModel
@@ -199,6 +249,26 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         return $updated ? $kinsman->id : null;
     }
 
+    private function updatePartner(Kinsman $kinsman, ?string $partnerId)
+    {
+        if ($kinsman->gender === 'male') {
+            $kinsman->wife()->syncWithPivotValues(
+                [$partnerId],
+                [
+                    'wife_id' => $partnerId,
+                    'husband_id' => $kinsman->id,
+                    'active' => true,
+                ]
+            );
+        }
+
+        if ($kinsman->gender === 'female') {
+            $kinsman->husband()->attach([
+                $partnerId,
+            ]);
+        }
+    }
+
     public function getChildren(int $id)
     {
         return $this->kinsmanModel
@@ -222,75 +292,5 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         $kinsman->restore();
 
         return NameHelper::getActionName();
-    }
-
-    private function setFields(Kinsman $kinsman, DtoInterface $dto): Kinsman
-    {
-        foreach ($dto as $prop => $value) {
-            if ($dto->$prop !== null) {
-                $kinsman->$prop = $value;
-            }
-        }
-
-        return $kinsman;
-    }
-
-    private function updateLife(KinsmanDto $kinsmanDto)
-    {
-        $lifeDto = app(LifeDto::class);
-        $lifeDto->kinsman_id = $kinsmanDto->id ?? null;
-        $lifeDto->birth_date = (string)$kinsmanDto->birth_date;
-        $lifeDto->end_date = $kinsmanDto->end_date;
-        $lifeDto->active = true;
-        $lifeDto->native_city_id = $kinsmanDto->native_city_id;
-
-        if ($lifeDto->kinsman_id) {
-            /** @var Life $life */
-            $life = $this->lifeRepository->getOneByKinsmanId($kinsmanDto->id);
-        }
-
-        if ($lifeDto->kinsman_id && $life) {
-            $lifeDto->id = $life->id;
-            $this->lifeRepository->update($lifeDto);
-        } else {
-            $this->lifeRepository->create($lifeDto);
-        }
-    }
-
-    private function updateCity(KinsmanDto $kinsmanDto): ?int
-    {
-        $city = $this->cityRepository->getOneByGeo($kinsmanDto->native);
-
-        if (!$city) {
-            $dto = app(CityDto::class);
-            $dto->name = $kinsmanDto->city_name;
-            $dto->country = $kinsmanDto->country_name;
-            $dto->geo = $kinsmanDto->native;
-            $dto->active = true;
-
-            $saved = $this->cityRepository->create($dto);
-        }
-
-        return $saved ?? $city->id;
-    }
-
-    private function updatePartner(Kinsman $kinsman, ?string $partnerId)
-    {
-        if ($kinsman->gender === 'male') {
-            $kinsman->wife()->syncWithPivotValues(
-                [$partnerId],
-                [
-                    'wife_id' => $partnerId,
-                    'husband_id' => $kinsman->id,
-                    'active' => true
-                ]
-            );
-        }
-
-        if ($kinsman->gender === 'female') {
-            $kinsman->husband()->attach([
-                $partnerId,
-            ]);
-        }
     }
 }

@@ -8,7 +8,6 @@ use App\Interfaces\DtoInterface;
 use App\Interfaces\RepositoryInterface;
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -74,6 +73,34 @@ class ArticleRepository extends BaseRepository implements RepositoryInterface
         return $saved ? $article->id : null;
     }
 
+    private function setFields(Article $article, DtoInterface $dto): Article
+    {
+        foreach ($dto as $prop => $value) {
+            if ($dto->$prop !== null) {
+                if (is_array($dto->$prop)) {
+                    continue;
+                }
+
+                $article->$prop = $value;
+            }
+        }
+
+        return $article;
+    }
+
+    private function getPreview(DtoInterface $dto, int $long = 255): string
+    {
+        $pattern = '/\.([^.]*)$/';
+        $previewText = mb_substr(strip_tags($dto->text), 0, $long);
+
+        return preg_replace($pattern, '.', $previewText);
+    }
+
+    private function setDisk(): string
+    {
+        return '';
+    }
+
     public function edit(int $id): array
     {
         $article = $this->articleModel
@@ -120,33 +147,5 @@ class ArticleRepository extends BaseRepository implements RepositoryInterface
         $article->restore();
 
         return NameHelper::getActionName();
-    }
-
-    private function setFields(Article $article, DtoInterface $dto): Article
-    {
-        foreach ($dto as $prop => $value) {
-            if ($dto->$prop !== null) {
-                if (is_array($dto->$prop)) {
-                    continue;
-                }
-
-                $article->$prop = $value;
-            }
-        }
-
-        return $article;
-    }
-
-    private function getPreview(DtoInterface $dto, int $long = 255): string
-    {
-        $pattern = '/\.([^.]*)$/';
-        $previewText = mb_substr(strip_tags($dto->text), 0, $long);
-
-        return preg_replace($pattern, '.', $previewText);
-    }
-
-    private function setDisk(): string
-    {
-        return '';
     }
 }

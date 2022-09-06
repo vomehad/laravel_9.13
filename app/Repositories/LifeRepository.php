@@ -81,6 +81,17 @@ class LifeRepository extends BaseRepository implements RepositoryInterface
         return $saved ? $life->id : null;
     }
 
+    private function setFields(Life $kin, DtoInterface $dto): ?Model
+    {
+        foreach ($dto as $prop => $value) {
+            if ($dto->$prop !== null) {
+                $kin->$prop = $value;
+            }
+        }
+
+        return $kin;
+    }
+
     public function edit(int $id): array
     {
         $life = $this->kinsmanModel
@@ -121,16 +132,5 @@ class LifeRepository extends BaseRepository implements RepositoryInterface
         $life->restore();
 
         return NameHelper::getActionName();
-    }
-
-    private function setFields(Life $kin, DtoInterface $dto): ?Model
-    {
-        foreach ($dto as $prop => $value) {
-            if ($dto->$prop !== null) {
-                $kin->$prop = $value;
-            }
-        }
-
-        return $kin;
     }
 }

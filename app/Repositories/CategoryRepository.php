@@ -62,6 +62,21 @@ class CategoryRepository extends BaseRepository implements RepositoryInterface
         return $saved ? $category->id : null;
     }
 
+    private function setFields(Category $category, DtoInterface $dto): Category
+    {
+        foreach ($dto as $prop => $value) {
+            if ($dto->$prop !== null) {
+                if (is_array($dto->$prop)) {
+                    continue;
+                }
+
+                $category->$prop = $value;
+            }
+        }
+
+        return $category;
+    }
+
     public function edit(int $id): array
     {
         $category = $this->model
@@ -108,20 +123,5 @@ class CategoryRepository extends BaseRepository implements RepositoryInterface
         $category->restore();
 
         return NameHelper::getActionName();
-    }
-
-    private function setFields(Category $category, DtoInterface $dto): Category
-    {
-        foreach ($dto as $prop => $value) {
-            if ($dto->$prop !== null) {
-                if (is_array($dto->$prop)) {
-                    continue;
-                }
-
-                $category->$prop = $value;
-            }
-        }
-
-        return $category;
     }
 }
