@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
+use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
 use Illuminate\Session\SessionManager as Session;
-use Illuminate\Cookie\CookieJar;
 use Illuminate\Support\Facades\Cookie;
 
 class CustomCookieService extends CookieJar
@@ -16,13 +16,6 @@ class CustomCookieService extends CookieJar
     {
         $this->request = $request;
         $this->session = session();
-    }
-
-    public function setCookie(string $name, string $value, int $minutes = 0): string
-    {
-        Cookie::queue($name, $value, $minutes);
-
-        return 'queued';
     }
 
     public function getCookie(string $name): ?string
@@ -41,6 +34,13 @@ class CustomCookieService extends CookieJar
         $cookieNumber = intval($cookieNumber);
 
         return !!$this->setCookie($name, ++$cookieNumber);
+    }
+
+    public function setCookie(string $name, string $value, int $minutes = 0): string
+    {
+        Cookie::queue($name, $value, $minutes);
+
+        return 'queued';
     }
 
     /**

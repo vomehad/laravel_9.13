@@ -13,6 +13,19 @@ class AlgorithmService
         return [$source, $bubbled];
     }
 
+    private function getShuffledArray(int $length = 10): array
+    {
+        $data = [];
+
+        for ($i = 1; $i <= $length; $i++) {
+            $data[] = $i;
+        }
+
+        shuffle($data);
+
+        return $data;
+    }
+
     private function loopSort($data)
     {
         for ($i = 0; $i <= count($data); $i++) {
@@ -24,19 +37,6 @@ class AlgorithmService
                 }
             }
         }
-
-        return $data;
-    }
-
-    private function getShuffledArray(int $length = 10): array
-    {
-        $data = [];
-
-        for ($i = 1; $i <= $length; $i++) {
-            $data[] = $i;
-        }
-
-        shuffle($data);
 
         return $data;
     }

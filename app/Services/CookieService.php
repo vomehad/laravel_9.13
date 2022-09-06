@@ -19,6 +19,11 @@ class CookieService
         ];
     }
 
+    private function incrementCookie(string $name): string
+    {
+        return CustomCookie::incrementCookie($name) ? CustomCookie::getCookie($name) : "not set";
+    }
+
     public function addCookie(CookieDto $dto)
     {
         $this->setHourly($dto->numberHourly);
@@ -41,10 +46,5 @@ class CookieService
         }
 
         CustomCookie::setCookie(static::FOREVER, $value);
-    }
-
-    private function incrementCookie(string $name): string
-    {
-        return CustomCookie::incrementCookie($name) ? CustomCookie::getCookie($name) : "not set";
     }
 }
