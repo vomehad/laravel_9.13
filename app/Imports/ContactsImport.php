@@ -3,7 +3,6 @@
 namespace App\Imports;
 
 use App\Models\Contact;
-use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
