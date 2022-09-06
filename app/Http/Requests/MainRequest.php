@@ -28,7 +28,7 @@ class MainRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|email',
             'subject' => 'required',
-            'message' => 'required'
+            'message' => 'required',
         ];
     }
 

@@ -7,9 +7,10 @@ use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class ArticleRequestStore
+ *
  * @package App\Http\Requests
  *
- * @property int    $id
+ * @property int $id
  * @property string $title
  */
 class ArticleRequestStore extends FormRequest

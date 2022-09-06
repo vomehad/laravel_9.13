@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Dto\ArticleDto;
 use App\Dto\CategoryDto;
 use App\Interfaces\TransportInterface;
 use Illuminate\Foundation\Http\FormRequest;

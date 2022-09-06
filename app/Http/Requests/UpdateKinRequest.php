@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Dto\KinDto;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class UpdateKinRequest extends FormRequest
 {
