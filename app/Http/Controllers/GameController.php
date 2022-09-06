@@ -17,7 +17,7 @@ class GameController extends Controller
             'title' => $title,
             'nav' => $this->nav,
             'rows' => $rows,
-            'item' => $startItem
+            'item' => $startItem,
         ]);
     }
 

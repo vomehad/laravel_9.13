@@ -5,22 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\NameHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function index(): Factory|View|Application
     {
         $tags = Tag::all();
 
         return view('tags.index', [
             'models' => $tags,
-            'nav' => $this->nav
+            'nav' => $this->nav,
         ]);
     }
 
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function create(): Factory|View|Application
     {
         $tag = new Tag();
 

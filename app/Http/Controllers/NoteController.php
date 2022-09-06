@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
 use App\Models\Note;
-use App\Http\Requests\CreateNoteRequest;
 use App\Repositories\NoteRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
@@ -118,10 +121,10 @@ class NoteController extends Controller
         return $this->repository->remove($id);
     }
 
-    public function search(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function search(Request $request): Factory|View|Application
     {
         $options = [
-            'search' => $request->get('search') ?? $request->query->get('query') ?? ''
+            'search' => $request->get('search') ?? $request->query->get('query') ?? '',
         ];
 
         $notes = $this->repository->getAll($options);

@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\NameHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function index(): Factory|View|Application
     {
         $categories = Category::where(['is_active' => true])->paginate();
 
@@ -20,7 +23,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function create(): Factory|View|Application
     {
         $category = new Category();
 
@@ -52,7 +55,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function edit(int $id): Factory|View|Application
     {
         $category = Category::find($id);
 

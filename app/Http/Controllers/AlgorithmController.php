@@ -21,7 +21,7 @@ class AlgorithmController extends Controller
         return view('algorithms.index', [
             'source' => $source,
             'bubbled' => $bubbled,
-            'nav' => $this->nav
+            'nav' => $this->nav,
         ]);
     }
 }

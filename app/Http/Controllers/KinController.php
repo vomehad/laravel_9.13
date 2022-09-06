@@ -32,7 +32,7 @@ class KinController extends Controller
 
         return view('kins.index', [
             'models' => $kins,
-            'nav' => $this->nav
+            'nav' => $this->nav,
         ]);
     }
 
@@ -42,7 +42,7 @@ class KinController extends Controller
 
         return view('kins.create', [
             'model' => $kin,
-            'nav' => $this->nav
+            'nav' => $this->nav,
         ]);
     }
 
@@ -61,7 +61,7 @@ class KinController extends Controller
 
         return view('kins.show', [
             'model' => $kin,
-            'nav' =>$this->nav
+            'nav' => $this->nav,
         ]);
     }
 
@@ -74,7 +74,7 @@ class KinController extends Controller
             'fathers' => $fathers,
             'mothers' => $mothers,
             'kins' => $kins,
-            'nav' => $this->nav
+            'nav' => $this->nav,
         ]);
     }
 

@@ -32,7 +32,7 @@ class KinsmanController extends Controller
 
         return view('kinsmans.index_new', [
             'models' => $kinsmans,
-            'nav' => $this->nav
+            'nav' => $this->nav,
         ]);
     }
 
@@ -42,7 +42,7 @@ class KinsmanController extends Controller
 
         return view('kinsmans.index', [
             'models' => $kinsmans,
-            'nav' => $this->nav
+            'nav' => $this->nav,
         ]);
     }
 
@@ -55,7 +55,7 @@ class KinsmanController extends Controller
             'fathers' => $fathers,
             'mothers' => $mothers,
             'kins' => $kins,
-            'nav' => $this->nav
+            'nav' => $this->nav,
         ]);
     }
 
@@ -76,7 +76,7 @@ class KinsmanController extends Controller
         return view('kinsmans.show_new', [
             'model' => $kinsman,
             'children' => $children,
-            'nav' =>$this->nav
+            'nav' => $this->nav,
         ]);
     }
 
@@ -88,7 +88,7 @@ class KinsmanController extends Controller
         return view('kinsmans.show', [
             'model' => $kinsman,
             'children' => $children,
-            'nav' =>$this->nav
+            'nav' => $this->nav,
         ]);
     }
 
@@ -102,7 +102,7 @@ class KinsmanController extends Controller
             'mothers' => $mothers,
             'kins' => $kins,
             'selected' => $selected,
-            'nav' => $this->nav
+            'nav' => $this->nav,
         ]);
     }
 

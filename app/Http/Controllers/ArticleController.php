@@ -6,6 +6,9 @@ use App\Http\Requests\CreateArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Repositories\ArticleRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
@@ -79,7 +82,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function edit(int $id)
+    public function edit(int $id): Factory|View|Application
     {
         /** @var Article $article */
         [$article, $categories, $selected] = $this->repository->edit($id);
@@ -115,7 +118,7 @@ class ArticleController extends Controller
         return $this->repository->remove($id);
     }
 
-    public function search(Request $request)
+    public function search(Request $request): Factory|View|Application
     {
         $options = [
             'search' => $request->get('search') ?? $request->query->get('query') ?? '',

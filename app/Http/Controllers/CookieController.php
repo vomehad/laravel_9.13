@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCookieRequest;
 use App\Services\CookieService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class CookieController extends Controller
 {
@@ -15,7 +18,7 @@ class CookieController extends Controller
         $this->service = $service;
     }
 
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function index(): Factory|View|Application
     {
         $cookies = $this->service->getCookie();
 

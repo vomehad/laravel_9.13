@@ -6,16 +6,18 @@ use App\Exports\ContactsExport;
 use App\Helpers\NameHelper;
 use App\Http\Requests\SplitRequest;
 use App\Http\Requests\TextRequest;
-use App\Imports\ContactsImport;
 use App\Models\Contact;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
-    public function home(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function home(): Factory|View|Application
     {
         $contacts = Contact::all();
 
@@ -25,17 +27,17 @@ class UserController extends Controller
         ]);
     }
 
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function index(): Factory|View|Application
     {
         $users = User::all();
 
         return view('users.index', [
             'models' => $users,
-            'nav' => $this->nav
+            'nav' => $this->nav,
         ]);
     }
 
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function create(): Factory|View|Application
     {
         $user = new User();
 
@@ -54,7 +56,7 @@ class UserController extends Controller
         return redirect()->route('users.show', $user->id);
     }
 
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function show(int $id): Factory|View|Application
     {
         /** @var User $user */
         $user = User::find($id);
@@ -133,7 +135,7 @@ class UserController extends Controller
         return preg_replace($pattern, $replacement, $text);
     }
 
-    public function account(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function account(): Factory|View|Application
     {
         return view('auth.account', [
             'nav' => $this->nav,
