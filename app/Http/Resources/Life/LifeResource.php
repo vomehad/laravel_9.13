@@ -11,7 +11,7 @@ class LifeResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request): array
@@ -22,10 +22,6 @@ class LifeResource extends JsonResource
             "birth_date" => $this->birth_date,
             "end_date" => $this->end_date,
             "native_city_id" => $this->native,
-//            "created_at" => $this->created_at,
-//            "updated_at" => $this->updated_at,
-//            "active" => $this->active,
-//            "deleted_at" => $this->deleted_at,
         ];
     }
 }

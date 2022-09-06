@@ -13,7 +13,7 @@ class KinsmanParentResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request): array
@@ -25,10 +25,6 @@ class KinsmanParentResource extends JsonResource
             "middle_name" => $this->middle_name,
             "kin" => new KinResource($this->kin),
             "life" => new LifeResource($this->life),
-//            "created_at" => $this->created_at,
-//            "updated_at" => $this->updated_at,
-//            "active" => $this->active,
-//            "deleted_at" => $this->deleted_at,
         ];
     }
 }

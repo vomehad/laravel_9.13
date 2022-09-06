@@ -10,10 +10,11 @@ use JsonSerializable;
 class KinsmanParentCollection extends ResourceCollection
 {
     protected $collect = KinsmanSingleResource::class;
+
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return Arrayable|JsonSerializable
      */
     public function toArray($request)

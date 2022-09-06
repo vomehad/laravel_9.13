@@ -13,18 +13,18 @@ class KinsmanSingleResource extends JsonResource
     {
         /** @var Kinsman $this */
         return [
-            'id' =>                         $this->id,
-            'photo' =>                      new PhotoResource($this->presenter()->imageInfo()),
-            'full_name' =>                  $this->presenter()->title(),
-            'name' =>                       $this->name,
-            'middle_name' =>                $this->middle_name,
-            'kin' =>                        new KinResource($this->kin),
-            'father' =>                     new KinsmanParentResource($this->father),
-            'mother' =>                     new KinsmanParentResource($this->mother),
-            'life' =>                       new LifeResource($this->life),
-            'gender' =>                     $this->presenter()->gender(),
+            'id' => $this->id,
+            'photo' => new PhotoResource($this->presenter()->imageInfo()),
+            'full_name' => $this->presenter()->title(),
+            'name' => $this->name,
+            'middle_name' => $this->middle_name,
+            'kin' => new KinResource($this->kin),
+            'father' => new KinsmanParentResource($this->father),
+            'mother' => new KinsmanParentResource($this->mother),
+            'life' => new LifeResource($this->life),
+            'gender' => $this->presenter()->gender(),
             $this->presenter()->wedKey() => new KinsmanWedResource($this->presenter()->wed()),
-            'ex_wed' =>                     new KinsmanExWedCollection($this->presenter()->exWed()),
+            'ex_wed' => new KinsmanExWedCollection($this->presenter()->exWed()),
         ];
     }
 }
