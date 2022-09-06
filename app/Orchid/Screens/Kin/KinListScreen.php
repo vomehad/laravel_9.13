@@ -24,6 +24,7 @@ class KinListScreen extends Screen
     {
         $this->repository = $repository;
     }
+
     /**
      * Query data.
      *
@@ -32,7 +33,7 @@ class KinListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'kins' => $this->repository->getAll(self::OPTIONS)
+            'kins' => $this->repository->getAll(self::OPTIONS),
         ];
     }
 
@@ -56,7 +57,7 @@ class KinListScreen extends Screen
         return [
             Link::make(__('Kin.Button.Create'))
                 ->icon('pencil')
-                ->route('platform.kin.create')
+                ->route('platform.kin.create'),
         ];
     }
 

@@ -74,7 +74,7 @@ class ArticleListScreen extends Screen
     public function layout(): iterable
     {
         return [
-            ArticleListLayout::class
+            ArticleListLayout::class,
         ];
     }
 }

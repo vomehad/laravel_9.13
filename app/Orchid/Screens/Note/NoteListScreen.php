@@ -57,7 +57,7 @@ class NoteListScreen extends Screen
         return [
             Link::make(__('Note.Button.Create'))
                 ->icon('pencil')
-                ->route('platform.note.create')
+                ->route('platform.note.create'),
         ];
     }
 

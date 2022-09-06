@@ -55,7 +55,7 @@ class CategoryListScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Link::make(__('Category.Button.Create'))->icon('pencil')->route('platform.category.create')
+            Link::make(__('Category.Button.Create'))->icon('pencil')->route('platform.category.create'),
         ];
     }
 

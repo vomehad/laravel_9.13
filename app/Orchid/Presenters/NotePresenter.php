@@ -2,13 +2,7 @@
 
 namespace App\Orchid\Presenters;
 
-use App\Models\Kinsman;
 use App\Models\Note;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
-use Laravel\Scout\Builder;
-use Orchid\Screen\Contracts\Personable;
-use Orchid\Screen\Contracts\Searchable;
 use Orchid\Support\Presenter;
 
 class NotePresenter extends Presenter

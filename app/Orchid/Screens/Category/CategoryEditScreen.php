@@ -4,15 +4,12 @@ namespace App\Orchid\Screens\Category;
 
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Models\Article;
 use App\Models\Category;
-use App\Models\Note;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\RedirectResponse;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\Input;
-use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
@@ -27,6 +24,7 @@ class CategoryEditScreen extends Screen
     {
         $this->repository = $repository;
     }
+
     /**
      * Query data.
      *

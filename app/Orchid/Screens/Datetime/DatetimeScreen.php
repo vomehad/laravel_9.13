@@ -5,9 +5,8 @@ namespace App\Orchid\Screens\Datetime;
 use App\Http\Requests\DateRequest;
 use App\Services\ExamService;
 use DateTimeInterface;
-use Orchid\Screen\Actions\ModalToggle;
-use Orchid\Support\Facades\Toast;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\DateTimer;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
@@ -80,7 +79,7 @@ class DatetimeScreen extends Screen
                 Button::make('showDiff')
                     ->modal('diffTime')
                     ->method('showDiff')
-                    ->type(Color::INFO())
+                    ->type(Color::INFO()),
 
             ])->title('period'),
 
@@ -98,7 +97,7 @@ class DatetimeScreen extends Screen
             'end' => $end->format(DateTimeInterface::ISO8601),
             'days' => $days,
             'month' => $month,
-            'years' => $years
+            'years' => $years,
         ]);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Orchid\Screens\Kinsman;
 
-use App\Orchid\Layouts\Kinsman\KinsmanListLayout;
 use App\Orchid\Layouts\Kinsman\KinsmanFilterLayout;
+use App\Orchid\Layouts\Kinsman\KinsmanListLayout;
 use App\Repositories\KinsmanRepository;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Link;
@@ -60,7 +60,7 @@ class KinsmanListScreen extends Screen
         return [
             Link::make(__('Kinsman.Button.Create'))
                 ->icon('plus')
-                ->route('platform.kinsman.create')
+                ->route('platform.kinsman.create'),
         ];
     }
 

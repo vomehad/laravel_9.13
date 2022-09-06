@@ -54,7 +54,7 @@ class ArticleListLayout extends Table
 
             TD::make('updated_at', __('Article.Label.Updated'))
                 ->sort()
-                ->render(function(Article $article) {
+                ->render(function (Article $article) {
                     return Carbon::make($article->updated_at)->format('j-M-Y H:i');
                 }),
             TD::make('created_at', __('Article.Label.Created'))
@@ -64,7 +64,7 @@ class ArticleListLayout extends Table
             TD::make(__('Article.Button.Action'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(function(Article $article) {
+                ->render(function (Article $article) {
                     return DropDown::make()
                         ->icon('options-vertical')
                         ->list([

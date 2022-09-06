@@ -7,17 +7,16 @@ use Orchid\Screen\Layouts\Content;
 
 class KinsmanPersona extends Content
 {
-//    protected $template = 'platform::layouts.persona';
     protected $template = 'layouts.persona';
 
     public function render(KinsmanPresenter $kinsman)
     {
         return view($this->template, [
-            'title'    => $kinsman->title(),
+            'title' => $kinsman->title(),
             'subTitle' => $kinsman->subTitle(),
-            'image'    => $kinsman->image(),
-            'url'      => $kinsman->url(),
-            'color'    => $kinsman->color(true),
+            'image' => $kinsman->image(),
+            'url' => $kinsman->url(),
+            'color' => $kinsman->color(true),
         ]);
     }
 }

@@ -107,7 +107,7 @@ class UserListScreen extends Screen
 
     /**
      * @param Request $request
-     * @param User    $user
+     * @param User $user
      */
     public function saveUser(Request $request, User $user): void
     {

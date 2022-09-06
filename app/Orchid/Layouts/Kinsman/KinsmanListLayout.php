@@ -8,7 +8,6 @@ use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Switcher;
-use Orchid\Screen\Layouts\Persona;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
@@ -25,7 +24,7 @@ class KinsmanListLayout extends Table
                 ->cantHide()
                 ->filter(Input::make())
                 ->width('250px')
-                ->render(function(Kinsman $kinsman) {
+                ->render(function (Kinsman $kinsman) {
                     return new KinsmanPersona($kinsman->presenter());
                 }
             ),
@@ -36,14 +35,14 @@ class KinsmanListLayout extends Table
                 ->defaultHidden(),
 
             TD::make('gender', __('Kinsman.Label.Gender'))
-                ->render(function(Kinsman $kinsman) {
+                ->render(function (Kinsman $kinsman) {
                     return $kinsman->presenter()->gender();
                 }
             )->defaultHidden(),
 
             TD::make('active', __('Kinsman.Label.Active'))
                 ->sort()
-                ->render(function(Kinsman $kinsman) {
+                ->render(function (Kinsman $kinsman) {
                     return Switcher::make()
                         ->sendTrueOrFalse()
                         ->value($kinsman->active)
@@ -53,7 +52,7 @@ class KinsmanListLayout extends Table
 
             TD::make('birth_date', __('Kinsman.Label.BirthDate'))
                 ->cantHide()
-                ->render(function(Kinsman $kinsman) {
+                ->render(function (Kinsman $kinsman) {
                     if (!empty($kinsman->life->birth_date)) {
                         return $kinsman->presenter()->birthDate();
                     }
@@ -62,7 +61,7 @@ class KinsmanListLayout extends Table
                 }),
 
             TD::make('father_id', __('Kinsman.Label.Father'))
-                ->render(function(Kinsman $kinsman) {
+                ->render(function (Kinsman $kinsman) {
                     /** @var Kinsman $father */
                     $father = $kinsman->father ?? null;
 
@@ -76,12 +75,12 @@ class KinsmanListLayout extends Table
             ),
 
             TD::make('mother_id', __('Kinsman.Label.Mother'))
-                ->render(function(Kinsman $kinsman) {
+                ->render(function (Kinsman $kinsman) {
                     /** @var Kinsman $mother */
                     $mother = $kinsman->mother ?? null;
 
                     if ($mother) {
-                        return Link::make($mother->name ." ". $mother->middle_name)
+                        return Link::make($mother->name . " " . $mother->middle_name)
                             ->route('platform.kinsman.edit', ['kinsman' => $mother->id]);
                     }
 
@@ -90,7 +89,7 @@ class KinsmanListLayout extends Table
             ),
 
             TD::make('kin_id', __('Kinsman.Label.Kin'))
-                ->render(function(Kinsman $kinsman) {
+                ->render(function (Kinsman $kinsman) {
                     $kin = $kinsman->kin ?? null;
 
                     if ($kin) {
@@ -103,7 +102,7 @@ class KinsmanListLayout extends Table
 
             TD::make('updated_at', __('Kinsman.Label.Updated'))
                 ->sort()
-                ->render(function(Kinsman $kinsman) {
+                ->render(function (Kinsman $kinsman) {
                     return Carbon::make($kinsman->updated_at)->format('j-M-Y H:i');
                 }),
             TD::make('created_at', __('Kinsman.Label.Created'))
@@ -113,7 +112,7 @@ class KinsmanListLayout extends Table
             TD::make(__('Kinsman.Button.Action'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(function(Kinsman $kinsman) {
+                ->render(function (Kinsman $kinsman) {
                     return DropDown::make()
                         ->icon('options-vertical')
                         ->list([

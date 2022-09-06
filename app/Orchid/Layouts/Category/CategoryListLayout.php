@@ -50,20 +50,20 @@ class CategoryListLayout extends Table
 
             TD::make('article', __('Category.Label.Article'))
                 ->width('130px')
-                ->render(function(Category $category) {
+                ->render(function (Category $category) {
                     return $category->article()->count();
                 }
             ),
 
             TD::make('note', __('Category.Label.Note'))
                 ->width('130px')
-                ->render(function(Category $category) {
+                ->render(function (Category $category) {
                     return $category->note()->count();
                 }
             ),
 
             TD::make('updated_at', __('Category.Label.Updated'))
-                ->render(function(Category $category) {
+                ->render(function (Category $category) {
                     return Carbon::make($category->updated_at)->format('j-M-Y H:i');
                 })
                 ->sort(),
@@ -74,7 +74,7 @@ class CategoryListLayout extends Table
             TD::make(__('Category.Button.Action'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(function(Category $category) {
+                ->render(function (Category $category) {
                     return DropDown::make()
                         ->icon('options-vertical')
                         ->list([

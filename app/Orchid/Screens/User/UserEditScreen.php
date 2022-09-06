@@ -39,7 +39,7 @@ class UserEditScreen extends Screen
         $user->load(['roles']);
 
         return [
-            'user'       => $user,
+            'user' => $user,
             'permission' => $user->getStatusPermission(),
         ];
     }
@@ -155,7 +155,7 @@ class UserEditScreen extends Screen
     }
 
     /**
-     * @param User    $user
+     * @param User $user
      * @param Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -177,7 +177,7 @@ class UserEditScreen extends Screen
             ->toArray();
 
         $userData = $request->get('user');
-        if ($user->exists && (string) $userData['password'] === '') {
+        if ($user->exists && (string)$userData['password'] === '') {
             // When updating existing user null password means "do not change current password"
             unset($userData['password']);
         } else {
@@ -201,9 +201,9 @@ class UserEditScreen extends Screen
     /**
      * @param User $user
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Exception
      *
      */
     public function remove(User $user)

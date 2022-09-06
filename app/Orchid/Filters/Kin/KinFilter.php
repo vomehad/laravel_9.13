@@ -11,16 +11,6 @@ use Orchid\Screen\Fields\Select;
 class KinFilter extends Filter
 {
     /**
-     * The displayable name of the filter.
-     *
-     * @return string
-     */
-    public function name(): string
-    {
-        return __('Kin.Label.Filter');
-    }
-
-    /**
      * The array of matched parameters.
      *
      * @return array|null
@@ -57,7 +47,7 @@ class KinFilter extends Filter
                 ->fromModel(Kin::class, 'name', 'slug')
                 ->empty()
                 ->value($this->request->get('kin'))
-                ->title(__('Kin.Label.Filter'))
+                ->title(__('Kin.Label.Filter')),
         ];
     }
 
@@ -68,5 +58,15 @@ class KinFilter extends Filter
     public function value(): string
     {
         return $this->name() . ': ' . Kin::where('slug', $this->request->get('kin'))->first()->name;
+    }
+
+    /**
+     * The displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name(): string
+    {
+        return __('Kin.Label.Filter');
     }
 }

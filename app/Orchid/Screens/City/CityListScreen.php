@@ -4,13 +4,10 @@ namespace App\Orchid\Screens\City;
 
 use App\Orchid\Layouts\City\CityListLayout;
 use App\Repositories\CityRepository;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Layout;
 use Orchid\Screen\Screen;
-use Orchid\Support\Facades\Alert;
 
 class CityListScreen extends Screen
 {
@@ -60,7 +57,7 @@ class CityListScreen extends Screen
         return [
             Link::make(__('City.Button.Create'))
                 ->icon('plus')
-                ->route('platform.city.create')
+                ->route('platform.city.create'),
         ];
     }
 

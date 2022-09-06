@@ -24,7 +24,7 @@ class CityListLayout extends Table
                 ->sort()
                 ->cantHide()
                 ->filter(Input::make())
-                ->render(function(City $city) {
+                ->render(function (City $city) {
                     return Link::make($city->name)->route('platform.city.edit', ['id' => $city->id]);
                 }),
 
@@ -34,7 +34,7 @@ class CityListLayout extends Table
 
             TD::make('active', __('City.Label.Active'))
                 ->sort()
-                ->render(function(City $city) {
+                ->render(function (City $city) {
                     return Switcher::make()->sendTrueOrFalse()->value($city->active)->disabled(true);
                 }),
 
@@ -44,7 +44,7 @@ class CityListLayout extends Table
             TD::make(__('Kinsman.Button.Action'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(function(City $city) {
+                ->render(function (City $city) {
                     return DropDown::make()
                         ->icon('options-vertical')
                         ->list([

@@ -5,7 +5,6 @@ namespace App\Orchid\Screens\City;
 use App\Http\Requests\CreateCityRequest;
 use App\Http\Requests\UpdateCityRequest;
 use App\Models\City;
-use App\Models\Life;
 use App\Repositories\CityRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
@@ -13,7 +12,6 @@ use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\Input;
-use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
@@ -112,6 +110,7 @@ class CityEditScreen extends Screen
             ]),
         ];
     }
+
     public function create(CreateCityRequest $request): RedirectResponse
     {
         $dto = $request->createDto();

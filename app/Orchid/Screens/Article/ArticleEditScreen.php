@@ -114,9 +114,8 @@ class ArticleEditScreen extends Screen
                     ->multiple(),
 
                 Quill::make('article.text')->title(__('Article.Label.Text')),
-//                ExtendedQuill::make('article.text')->title(__('Article.Label.Text')),
 
-                input::make('article.disk')->title(__('Article.Label.Disk'))
+                input::make('article.disk')->title(__('Article.Label.Disk')),
             ]),
         ];
     }

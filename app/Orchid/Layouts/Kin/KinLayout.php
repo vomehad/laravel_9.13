@@ -18,7 +18,7 @@ class KinLayout extends Table
     {
         return [
             TD::make('name', __('Kin.Label.Name'))
-                ->render(function(Kin $kin) {
+                ->render(function (Kin $kin) {
                     return Link::make($kin->name)->route('platform.kin.edit', $kin->id);
                 })->sort(),
 
@@ -29,7 +29,7 @@ class KinLayout extends Table
                     return "<span style='background-color: {$kin->color};'>$kin->color</span>";
                 }),
 
-            TD::make('active', __('Kin.Label.Active'))->render(function(Kin $kin) {
+            TD::make('active', __('Kin.Label.Active'))->render(function (Kin $kin) {
                 return Switcher::make()->sendTrueOrFalse()->value($kin->active)->disabled(true);
             })->sort(),
 
@@ -43,7 +43,7 @@ class KinLayout extends Table
             TD::make(__('Kin.Button.Action'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(function(Kin $kin) {
+                ->render(function (Kin $kin) {
                     return DropDown::make()
                         ->icon('options-vertical')
                         ->list([

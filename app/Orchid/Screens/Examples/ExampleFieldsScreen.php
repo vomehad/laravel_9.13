@@ -211,10 +211,8 @@ class ExampleFieldsScreen extends Screen
                     ->title('Telephone')
                     ->value('1-(555)-555-5555')
                     ->horizontal()
-                    ->popover('The device’s autocomplete mechanisms kick in and suggest
-                        phone numbers that can be autofilled with a single tap.')
-                    ->help('Focusing input on a telephone field brings up
-                        a numeric keypad ready for keying in a number.'),
+                    ->popover('The device’s autocomplete mechanisms kick in and suggest phone numbers that can be autofilled with a single tap.')
+                    ->help('Focusing input on a telephone field brings up a numeric keypad ready for keying in a number.'),
 
                 Input::make('password')
                     ->type('password')
@@ -260,8 +258,7 @@ class ExampleFieldsScreen extends Screen
 
                 Input::make('datalist')
                     ->title('Datalist example')
-                    ->help('Most browsers include some support for "datalist"
-                                 elements, their styling is inconsistent at best.')
+                    ->help('Most browsers include some support for "datalist" elements, their styling is inconsistent at best.')
                     ->datalist([
                         'San Francisco',
                         'New York',
@@ -270,7 +267,6 @@ class ExampleFieldsScreen extends Screen
                         'Chicago',
                     ])
                     ->horizontal(),
-
 
                 Input::make('color')
                     ->type('color')

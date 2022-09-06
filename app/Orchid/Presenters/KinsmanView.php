@@ -15,10 +15,10 @@ class KinsmanView extends Content
     public function render(KinsmanPresenter $kinsman): View
     {
         return view($this->template, [
-            'title'    => $kinsman->title(),
+            'title' => $kinsman->title(),
             'subTitle' => $kinsman->subTitle(),
-            'image'    => $kinsman->image(),
-            'url'      => $kinsman->url(),
+            'image' => $kinsman->image(),
+            'url' => $kinsman->url(),
         ]);
     }
 }

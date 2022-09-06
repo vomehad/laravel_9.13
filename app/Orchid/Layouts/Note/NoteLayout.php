@@ -32,7 +32,7 @@ class NoteLayout extends Table
         return [
             TD::make('name', __('Note.Label.Name'))
                 ->cantHide()
-                ->render(function(Note $note) {
+                ->render(function (Note $note) {
                     return Link::make($note->name)->route('platform.note.edit', $note->id);
                 })->sort(),
 
@@ -45,7 +45,7 @@ class NoteLayout extends Table
 
             TD::make('active', __('Note.Label.Active'))
                 ->defaultHidden()
-                ->render(function(Note $note) {
+                ->render(function (Note $note) {
                     return Switcher::make()
                         ->sendTrueOrFalse()
                         ->value($note->active)
@@ -54,7 +54,7 @@ class NoteLayout extends Table
             ),
 
             TD::make('parent_id', __('Note.Label.Parent'))
-                ->render(function(Note $note) {
+                ->render(function (Note $note) {
                     $parentId = $note->parentNote->id ?? null;
 
                     if ($parentId) {
@@ -66,7 +66,7 @@ class NoteLayout extends Table
                 }),
 
             TD::make('updated_at', __('Note.Label.Updated'))
-                ->render(function(Note $note) {
+                ->render(function (Note $note) {
                     return Carbon::make($note->updated_at)->format('j-M-Y H:i');
                 })
                 ->sort(),
@@ -77,15 +77,12 @@ class NoteLayout extends Table
             TD::make(__('Note.Button.Action'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(function(Note $note) {
+                ->render(function (Note $note) {
                     return DropDown::make()
                         ->icon('options-vertical')
                         ->list([
-                                Link::make(__('Note.Button.Update'))
-                                    ->icon('pencil')
-                                    ->route('platform.note.edit', $note->id),
-                            ],
-                    );
+                            Link::make(__('Note.Button.Update'))->icon('pencil')->route('platform.note.edit', $note->id),
+                            ]);
                 }
             ),
         ];
