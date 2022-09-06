@@ -47,4 +47,16 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    /**
+     * Здесь перехватываем исключения при работе приложения. Нужно точно указать класс исключения
+     */
+    public function render($request, Throwable $e)
+    {
+        return match (true) {
+//            $e instanceof AuthorizationException => (new FaultResponse($e->getMessage()))->response()->setStatusCode(403),
+//            $e instanceof CompanyHasSpecsException => (new FaultResponse(__('message.failed.company.has_specs')))->response()->setStatusCode(403),
+            default => parent::render($request, $e),
+        };
+    }
 }
