@@ -5,8 +5,8 @@ namespace App\Console\Commands;
 use App\Exports\ContactsExport;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
-use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelConfig;
+use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
 class ExportXls extends Command
