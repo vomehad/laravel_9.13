@@ -14,12 +14,12 @@ use Orchid\Screen\AsSource;
 /**
  * Class Life
  *
- * @property int        $id
- * @property Kinsman    $kinsman
- * @property string     $birth_date
- * @property string     $end_date
- * @property boolean    $active
- * @property City       $native
+ * @property int $id
+ * @property Kinsman $kinsman
+ * @property string $birth_date
+ * @property string $end_date
+ * @property boolean $active
+ * @property City $native
  *
  * @package App\Models
  */

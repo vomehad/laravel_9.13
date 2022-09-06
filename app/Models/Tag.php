@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Class Tag
+ *
  * @package App\Models
  *
  * @property int $id

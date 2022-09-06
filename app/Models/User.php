@@ -39,8 +39,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'permissions'          => 'array',
-        'email_verified_at'    => 'datetime',
+        'permissions' => 'array',
+        'email_verified_at' => 'datetime',
     ];
 
     /**
@@ -70,6 +70,6 @@ class User extends Authenticatable
 
     public function articles(): HasMany
     {
-        return $this->hasMany(Article::class, 'created_by','id');
+        return $this->hasMany(Article::class, 'created_by', 'id');
     }
 }

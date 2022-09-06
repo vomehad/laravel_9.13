@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use JetBrains\PhpStorm\Pure;
 use Laravel\Scout\Searchable;
 use Orchid\Attachment\Attachable;
 use Orchid\Attachment\Models\Attachment;
@@ -20,23 +21,23 @@ use Orchid\Screen\AsSource;
 /**
  * Class Kinsman
  *
- * @property int                    $id
- * @property string                 $name
- * @property string                 $middle_name
- * @property string                 $gender
- * @property Kinsman                $father
- * @property Kinsman                $mother
- * @property Kin                    $kin
- * @property bool                   $active
- * @property Life                   $life
- * @property Collection|City[]      $nativeCity
- * @property Collection|Kinsman[]   $wife
- * @property Collection|Kinsman[]   $exWife
- * @property Collection|Kinsman[]   $husband
- * @property Collection|Kinsman[]   $exHusband
- * @property string                 $created_at
- * @property string                 $updated_at
- * @property string                 $deleted_at
+ * @property int $id
+ * @property string $name
+ * @property string $middle_name
+ * @property string $gender
+ * @property Kinsman $father
+ * @property Kinsman $mother
+ * @property Kin $kin
+ * @property bool $active
+ * @property Life $life
+ * @property Collection|City[] $nativeCity
+ * @property Collection|Kinsman[] $wife
+ * @property Collection|Kinsman[] $exWife
+ * @property Collection|Kinsman[] $husband
+ * @property Collection|Kinsman[] $exHusband
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $deleted_at
  *
  * @package App\Models
  */
@@ -62,8 +63,6 @@ class Kinsman extends Model
         'middle_name',
         'gender',
         'active',
-//        'updated_at',
-//        'created_at',
     ];
 
     protected $allowedSorts = [
@@ -75,18 +74,18 @@ class Kinsman extends Model
         'created_at',
     ];
 
-//====================== relations =====================================
     public function father(): BelongsTo
     {
         return $this->belongsTo(Kinsman::class)->withDefault([
-            'gender' => 'male'
+            'gender' => 'male',
         ]);
     }
 
+//====================== relations =====================================
     public function mother(): BelongsTo
     {
         return $this->BelongsTo(Kinsman::class)->withDefault([
-            'gender' => 'female'
+            'gender' => 'female',
         ]);
     }
 
@@ -128,7 +127,7 @@ class Kinsman extends Model
             'husband_id',
             'wife_id',
             ''
-        )->wherePivot('divorce_date', '=', null);
+        )->wherePivotNull('divorce_date');
     }
 
     public function exHusband(): BelongsToMany
@@ -138,7 +137,7 @@ class Kinsman extends Model
             'marriage',
             'husband_id',
             'husband_id'
-        )->wherePivot('divorce_date', '!=', null);
+        )->wherePivotNotNull('divorce_date');
     }
 
     public function exWife(): BelongsToMany
@@ -148,7 +147,7 @@ class Kinsman extends Model
             'marriage',
             'husband_id',
             'husband_id'
-        )->wherePivot('divorce_date', '!=', null);
+        )->wherePivotNotNull('divorce_date');
     }
 
     public function photo(): HasOne
@@ -190,13 +189,37 @@ class Kinsman extends Model
             ->where('id', '!=', $this->id);
     }
 
+    #[Pure]
     public function getFullNameAttribute(): string
     {
         return $this->presenter()->title();
     }
 
+    #[Pure]
     public function presenter(): KinsmanPresenter
     {
         return new KinsmanPresenter($this);
+    }
+
+    /**
+     * Modify the query used to retrieve models when making all of the models searchable.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->with([
+            'father',
+            'mother',
+            'kin',
+            'life',
+            'nativeCity',
+            'husband',
+            'wife',
+            'exHusband',
+            'exWife',
+            'photo',
+        ]);
     }
 }

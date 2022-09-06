@@ -9,6 +9,7 @@ use Laravel\Scout\Searchable;
 
 /**
  * Class Contact
+ *
  * @package App\Models
  *
  * @property string $username

@@ -9,6 +9,7 @@ use Laravel\Scout\Searchable;
 
 /**
  * Class Game
+ *
  * @package App\Models
  */
 class Game extends Model

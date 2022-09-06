@@ -7,22 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Laravel\Scout\Searchable;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
 /**
- * @property int            $id
- * @property string         $title
- * @property string         $link
- * @property string         $text
- * @property string         $preview
- * @property string         $disk
- * @property Category[]     $category
- * @property User           $author
- * @property string         $created_at
- * @property string         $updated_at
- * @property boolean        $active
+ * @property int $id
+ * @property string $title
+ * @property string $link
+ * @property string $text
+ * @property string $preview
+ * @property string $disk
+ * @property Collection|Category[] $category
+ * @property User $author
+ * @property string $created_at
+ * @property string $updated_at
+ * @property boolean $active
  *
  * @method static find(string $column)
  */
@@ -61,9 +62,4 @@ class Article extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-
-//    public function tags(): MorphToMany
-//    {
-//        return $this->morphToMany(Tag::class, 'taggable');
-//    }
 }

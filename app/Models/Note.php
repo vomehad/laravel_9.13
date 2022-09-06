@@ -14,15 +14,16 @@ use Orchid\Screen\AsSource;
 
 /**
  * Class Note
+ *
  * @package App\Models
  *
- * @property int            $id
- * @property string         $name
- * @property string         $content
- * @property Note           $parentNote
- * @property Category       $category
- * @property bool           $active
- * @property string         $updated_at
+ * @property int $id
+ * @property string $name
+ * @property string $content
+ * @property Note $parentNote
+ * @property Category $category
+ * @property bool $active
+ * @property string $updated_at
  *
  * @method static find(int $id)
  */
@@ -62,7 +63,7 @@ class Note extends Model
     {
         return $this->belongsTo(Note::class, 'parent_id', 'id')->withDefault([
             'active' => true,
-            'parent_id' => null
+            'parent_id' => null,
         ]);
     }
 
