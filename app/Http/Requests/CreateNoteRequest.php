@@ -3,25 +3,20 @@
 namespace App\Http\Requests;
 
 use App\Dto\NoteDto;
-use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
-class CreateNoteRequest extends FormRequest
+class CreateNoteRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+    #[ArrayShape([
+        'name' => "string",
+        'note.name' => "string",
+        'category.*' => "string",
+        'note.category.*' => "string",
+        'parent_id' => "string",
+        'note.parent_id' => "string",
+        'content' => "string",
+        'note.content' => "string"
+    ])]
     public function rules(): array
     {
         return [

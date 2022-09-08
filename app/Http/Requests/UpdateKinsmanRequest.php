@@ -3,29 +3,13 @@
 namespace App\Http\Requests;
 
 use App\Dto\KinsmanDto;
-use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateKinsmanRequest extends FormRequest
+class UpdateKinsmanRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules(): array
     {
         return [
-            'kinsman.id' => 'int',
+            'kinsman.id' => 'exists:kinsmans,id',
             'kinsman.photo' => 'nullable',
             'kinsman.name' => 'required|string',
             'kinsman.middle_name' => 'nullable|string',

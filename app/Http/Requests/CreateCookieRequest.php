@@ -4,30 +4,19 @@ namespace App\Http\Requests;
 
 use App\Dto\CookieDto;
 use App\Interfaces\TransportInterface;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @property int $numberHourly
  * @property int $numberForever
  */
-class CreateCookieRequest extends FormRequest implements TransportInterface
+class CreateCookieRequest extends BaseRequest implements TransportInterface
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+    #[ArrayShape([
+        'numberHourly' => "array",
+        'numberForever' => "array"
+    ])]
     public function rules(): array
     {
         return [

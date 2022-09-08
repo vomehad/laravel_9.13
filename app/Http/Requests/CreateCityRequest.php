@@ -3,26 +3,16 @@
 namespace App\Http\Requests;
 
 use App\Dto\CityDto;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
+use JetBrains\PhpStorm\ArrayShape;
 
-class CreateCityRequest extends FormRequest
+class CreateCityRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        return Auth::check();
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+    #[ArrayShape([
+        'city.name' => "string",
+        'city.country' => "string",
+        'city.modern_name' => "string",
+        'city.active' => "string"
+    ])]
     public function rules(): array
     {
         return [

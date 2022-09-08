@@ -4,25 +4,20 @@ namespace App\Http\Requests;
 
 use App\Dto\CategoryDto;
 use App\Interfaces\TransportInterface;
-use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
-class CreateCategoryRequest extends FormRequest implements TransportInterface
+class CreateCategoryRequest extends BaseRequest implements TransportInterface
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+    #[ArrayShape([
+        'name' => "string",
+        'category.name' => "string",
+        'active' => "string",
+        'category.active' => "string",
+        'article.*' => "string",
+        'category.article.*' => "string",
+        'note.*' => "string",
+        'category.note.*' => "string"
+    ])]
     public function rules(): array
     {
         return [

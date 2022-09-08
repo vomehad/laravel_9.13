@@ -3,30 +3,14 @@
 namespace App\Http\Requests;
 
 use App\Dto\NoteDto;
-use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateNoteRequest extends FormRequest
+class UpdateNoteRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules(): array
     {
         return [
-            'id' => 'int',
-            'note.id' => 'int',
+            'id' => 'exists:notes,id',
+            'note.id' => 'exists:notes,id',
 
             'name' => 'required_if:note.name,null|string|max:255',
             'note.name' => 'required_if:name,null|string|max:255',

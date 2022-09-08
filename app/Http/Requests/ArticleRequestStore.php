@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
@@ -13,25 +12,13 @@ use JetBrains\PhpStorm\ArrayShape;
  * @property int $id
  * @property string $title
  */
-class ArticleRequestStore extends FormRequest
+class ArticleRequestStore extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-//        return auth()->check();
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    #[ArrayShape(['title' => "string", 'text' => "string", 'category.*' => "string"])]
+    #[ArrayShape([
+        'title' => "string",
+        'text' => "string",
+        'category.*' => "string"
+    ])]
     public function rules(): array
     {
         return [

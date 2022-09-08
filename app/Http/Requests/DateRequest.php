@@ -5,15 +5,14 @@ namespace App\Http\Requests;
 use App\Dto\DateDto;
 use App\Interfaces\DtoInterface;
 use App\Interfaces\TransportInterface;
-use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
-class DateRequest extends FormRequest implements TransportInterface
+class DateRequest extends BaseRequest implements TransportInterface
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
+    #[ArrayShape([
+        'begin' => "string",
+        'end' => "string"
+    ])]
     public function rules(): array
     {
         return [
