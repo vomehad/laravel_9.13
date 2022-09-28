@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class KinsmanCollection extends ResourceCollection
 {
-    public $collects = KinsmanListResource::class;
+    public $collects = KinsmanResource::class;
 
     /**
      * Transform the resource collection into an array.

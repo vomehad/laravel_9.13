@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Admin;
 
 use App\Dto\CityDto;
 use App\Dto\KinsmanDto;
 use App\Dto\LifeDto;
 use App\Dto\SelectedDto;
-use App\Dto\SortKinsmansDto;
 use App\Helpers\NameHelper;
 use App\Interfaces\DtoInterface;
 use App\Interfaces\InheritInterface;
@@ -14,8 +13,9 @@ use App\Interfaces\RepositoryInterface;
 use App\Models\Kin;
 use App\Models\Kinsman;
 use App\Models\Life;
+use App\Orchid\Layouts\Kinsman\KinsmanFilterLayout;
+use App\Repositories\BaseRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -39,58 +39,32 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         $this->cityRepository = $cityRepository;
     }
 
-    public function getAll(array $options = []): Collection|LengthAwarePaginator
+    public function getAll(array $options = []): Collection|LengthAwarePaginator|array
     {
         $kinsmans = $this->kinsmanModel->with($this->getRelationList())
-            ->where(['active' => true])
+            ->where(['active' => false])
             ->whereNull('deleted_at');
 
-        $kinsmans = $this->filter($kinsmans, $options);
-        $kinsmans = $this->sort($kinsmans, $options);
+        if (Arr::has($options, 'search')) {
+            $kinsmans = $kinsmans->search(Arr::get($options, 'search'));
+        }
 
-        return $kinsmans->paginate(Arr::get($options, 'perPage'));
+        if (Arr::has($options, 'defaultSort')) {
+            $kinsmans = $kinsmans->filters()
+                ->filtersApplySelection(KinsmanFilterLayout::class)
+                ->defaultSort(Arr::get($options, 'defaultSort'), 'desc');
+        }
+
+        if (Arr::has($options, 'perPage')) {
+            return $kinsmans->paginate(Arr::get($options, 'perPage'));
+        }
+
+        return $kinsmans->get();
     }
 
     private function getRelationList(): array
     {
         return ['father', 'mother', 'kin'];
-    }
-
-    private function filter(Builder $kinsmans, array $params): Builder
-    {
-        $filterList = [
-            'id',
-        ];
-
-        foreach (collect($params)->only($filterList) as $key => $value) {
-            if ($key === 'id') {
-                $ids = explode(',', $value);
-
-                $kinsmans = $kinsmans->whereIn('id', $ids);
-            }
-        }
-
-        return $kinsmans;
-    }
-
-    private function sort(Builder $kinsmans, array $params): Builder
-    {
-        if (!empty($params['sort'])) {
-            $sortDto = $this->sortingParams($params);
-            $kinsmans = $kinsmans->orderBy($sortDto->property, $sortDto->direction);
-        }
-
-        return $kinsmans;
-    }
-
-    private function sortingParams(array $params)
-    {
-        $dto = app(SortKinsmansDto::class);
-
-        $dto->dorection = str_starts_with($params['sort'], '-') ? 'desc' : 'asc';
-        $dto->setPropertyName($params['sort']);
-
-        return $dto;
     }
 
     public function getOne(int $id): ?Model

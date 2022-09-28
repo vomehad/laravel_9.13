@@ -2,32 +2,28 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Kinsman\KinsmanCollection;
 use App\Http\Resources\Kinsman\KinsmanSingleResource;
 use App\Repositories\KinsmanRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class KinsmanController extends Controller
+class KinsmanController extends ApiController
 {
     private KinsmanRepository $repository;
 
     public function __construct(KinsmanRepository $repository)
     {
-        parent::__construct();
         $this->repository = $repository;
     }
 
-    public function index(): KinsmanCollection
+    public function index(Request $request): JsonResponse
     {
-        $kinsmans = $this->repository->getAll();
+        $kinsmans = $this->repository->getAll($request->query());
 
-        return new KinsmanCollection($kinsmans);
-    }
-
-    public function create()
-    {
-        //
+        return (new KinsmanCollection($kinsmans))
+            ->response()
+            ->setStatusCode(200);
     }
 
     public function store(Request $request)
@@ -40,17 +36,6 @@ class KinsmanController extends Controller
         $kinsman = $this->repository->getOne($id);
 
         return new KinsmanSingleResource($kinsman);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
