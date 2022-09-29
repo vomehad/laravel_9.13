@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Http\Resources\FaultResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -50,12 +53,13 @@ class Handler extends ExceptionHandler
 
     /**
      * Здесь перехватываем исключения при работе приложения. Нужно точно указать класс исключения
+     *
+     * @throws \Throwable
      */
-    public function render($request, Throwable $e)
+    public function render($request, Throwable $e): \Illuminate\Http\Response|JsonResponse|Response
     {
         return match (true) {
-//            $e instanceof AuthorizationException => (new FaultResponse($e->getMessage()))->response()->setStatusCode(403),
-//            $e instanceof CompanyHasSpecsException => (new FaultResponse(__('message.failed.company.has_specs')))->response()->setStatusCode(403),
+            $e instanceof YandexNotAuthException => (new FaultResponse($e->getMessage()))->response()->setStatusCode(Response::HTTP_UNAUTHORIZED),
             default => parent::render($request, $e),
         };
     }

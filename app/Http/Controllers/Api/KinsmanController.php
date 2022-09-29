@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\CreatePhotoRequest;
 use App\Http\Resources\Kinsman\KinsmanCollection;
 use App\Http\Resources\Kinsman\KinsmanSingleResource;
 use App\Repositories\KinsmanRepository;
+use App\Services\YandexStorageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class KinsmanController extends ApiController
 {
     private KinsmanRepository $repository;
+    private YandexStorageService $service;
 
-    public function __construct(KinsmanRepository $repository)
+    public function __construct(KinsmanRepository $repository, YandexStorageService $service)
     {
         $this->repository = $repository;
+        $this->service = $service;
     }
 
     public function index(Request $request): JsonResponse
@@ -26,9 +30,12 @@ class KinsmanController extends ApiController
             ->setStatusCode(200);
     }
 
-    public function store(Request $request)
+    public function storePhoto(CreatePhotoRequest $request)
     {
-        //
+        $dto = $request->createDto();
+        $this->service->getDiskInfo();
+        dump(__FILE__.":".(__LINE__+1));
+        dd(__METHOD__, $dto);
     }
 
     public function show(int $id): KinsmanSingleResource

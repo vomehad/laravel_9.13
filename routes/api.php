@@ -9,4 +9,5 @@ Route::name('api.')->prefix('v1')->group(function() {
     Route::post('/text', [ExamController::class, 'switchDates'])->name('text');
 
     Route::resource('kinsmans', KinsmanController::class);
+    Route::post('photo', [KinsmanController::class, 'storePhoto']);
 });
