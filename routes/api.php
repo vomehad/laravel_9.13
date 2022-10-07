@@ -10,4 +10,5 @@ Route::name('api.')->prefix('v1')->group(function() {
 
     Route::resource('kinsmans', KinsmanController::class);
     Route::post('photo', [KinsmanController::class, 'storePhoto']);
+    Route::get('yandex/login', [KinsmanController::class, 'yandexLogin']);
 });

@@ -19,7 +19,7 @@ class BaseService
     /**
      * @throws \App\Exceptions\YandexNotAuthException
      */
-    protected function send(string $url, string $method = 'GET', array $options = [])
+    protected function send(string $url, string $method = 'GET', array $options = [], bool $decode = true)
     {
         try {
             $options = array_merge(['headers' => $this->headers], $options);
@@ -28,6 +28,10 @@ class BaseService
             if ($exception->getCode() === Response::HTTP_UNAUTHORIZED) {
                 throw new YandexNotAuthException('Не удалось авторизоваться в Яндекс.Диск');
             }
+        }
+
+        if (!$decode) {
+            return $response->getBody()->getContents();
         }
 
         return json_decode($response->getBody()->getContents());

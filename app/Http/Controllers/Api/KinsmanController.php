@@ -30,12 +30,23 @@ class KinsmanController extends ApiController
             ->setStatusCode(200);
     }
 
+    /**
+     * @throws \App\Exceptions\YandexNotAuthException
+     */
     public function storePhoto(CreatePhotoRequest $request)
     {
         $dto = $request->createDto();
         $this->service->getDiskInfo();
         dump(__FILE__.":".(__LINE__+1));
         dd(__METHOD__, $dto);
+    }
+
+    /**
+     * @throws \App\Exceptions\YandexNotAuthException
+     */
+    public function yandexLogin()
+    {
+        return $this->service->login();
     }
 
     public function show(int $id): KinsmanSingleResource
